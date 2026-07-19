@@ -1,70 +1,349 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Premium QR Business Card Generator</title>
+  <title>Ledger — Premium QR Business Card Generator</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --primary:#ff7a18;--secondary:#ffb347;--dark:#151515;--muted:#6b7280;--panel:#ffffff;
-      --page1:#fff4e8;--page2:#f8fafc;--ring:rgba(255,122,24,.18);
+    :root, [data-bs-theme="light"] {
+      --primary: #c1443d;
+      --secondary: #b3922f;
+      --dark: #17241f;
+      --muted: #5b6b62;
+      --panel-bg: rgba(255, 255, 255, 0.76);
+      --card-bg: #ffffff;
+      --border-color: #e2e6da;
+      --text-color: #17241f;
+      --input-bg: rgba(255, 255, 255, 0.65);
+      --input-border: #dbe0d3;
+      --page-bg-1: #eef1e9;
+      --page-bg-2: #dfe6da;
+      --ring: rgba(193, 68, 61, 0.16);
+      --glass-border: rgba(23, 36, 31, 0.08);
+      --drop-bg: rgba(179, 146, 47, 0.06);
     }
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;font-family:Manrope,sans-serif;color:#171717;background:
-      radial-gradient(circle at 10% 10%,rgba(255,179,71,.34),transparent 28%),
-      radial-gradient(circle at 90% 20%,rgba(255,122,24,.16),transparent 26%),
-      linear-gradient(135deg,var(--page1),var(--page2));padding:36px 0}
-    .main-container{max-width:1040px}
-    .app-shell{background:rgba(255,255,255,.86);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.75);border-radius:30px;overflow:hidden;box-shadow:0 28px 80px rgba(17,24,39,.14)}
-    .hero{padding:42px 44px;background:linear-gradient(125deg,#121212 0%,#242424 55%,#3a2414 100%);color:#fff;position:relative;overflow:hidden}
-    .hero:before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-80px;top:-120px;background:linear-gradient(135deg,var(--primary),var(--secondary));filter:blur(2px);opacity:.9}
-    .hero:after{content:"";position:absolute;width:200px;height:200px;border-radius:50%;right:110px;bottom:-140px;border:30px solid rgba(255,255,255,.08)}
-    .hero>*{position:relative;z-index:1}.hero h1{font-weight:800;font-size:clamp(28px,4vw,44px);letter-spacing:-1.4px}.hero p{margin:8px 0 0;color:#d1d5db}
-    .hero-badge{display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.13);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
-    .app-body{padding:38px}
-    .section-card{background:#fff;border:1px solid #edf0f3;border-radius:22px;padding:25px;box-shadow:0 10px 35px rgba(17,24,39,.055);margin-bottom:20px}
-    .section-title{font-size:16px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px}.section-title i{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
-    .form-label{font-weight:700;font-size:13px;color:#374151}.form-control,.form-select{border:1.5px solid #e5e7eb;border-radius:13px;padding:12px 14px;box-shadow:none}.form-control:focus,.form-select:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)}
-    .theme-picker{display:flex;gap:10px;flex-wrap:wrap}.theme-chip{border:2px solid transparent;border-radius:14px;padding:7px;background:#fff;cursor:pointer;transition:.2s;display:flex;flex-direction:column;gap:6px;align-items:center;font-weight:800;color:#374151}.theme-chip small{font-size:11px}.theme-chip:hover{transform:translateY(-2px)}.theme-chip.active{border-color:#111}.swatch{width:100px;height:52px;border-radius:9px;display:block}.swatch.orange{background:linear-gradient(135deg,#ff7a18,#ffb347)}.swatch.blue{background:linear-gradient(135deg,#0f4c81,#32a6ff)}.swatch.green{background:linear-gradient(135deg,#064e3b,#34d399)}.swatch.purple{background:linear-gradient(135deg,#3b1b6f,#a855f7)}
-    .btn-main{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:0;border-radius:14px;padding:14px 20px;font-weight:800;box-shadow:0 12px 25px var(--ring)}.btn-main:hover{color:#fff;transform:translateY(-1px)}
-    .btn-soft{background:#f3f4f6;border:0;border-radius:14px;padding:14px 20px;font-weight:800;color:#374151}
-    .result-panel{display:none}.result-panel.show{display:block;animation:rise .4s ease}@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-    .view-tabs{display:none;gap:10px;justify-content:center;margin:25px 0}.view-tabs.show{display:flex}.tab-btn{border:1px solid #e5e7eb;background:#fff;border-radius:999px;padding:10px 18px;font-weight:800;color:#6b7280}.tab-btn.active{background:#151515;color:#fff;border-color:#151515}
-    .qr-box{display:inline-grid;place-items:center;background:#fff;padding:18px;border-radius:22px;box-shadow:0 12px 35px rgba(0,0,0,.1)}
-    .business-card-wrap{overflow:auto;padding:14px}.business-card{width:1050px;height:600px;position:relative;overflow:hidden;border-radius:34px;background:#101010;color:#fff;box-shadow:0 30px 70px rgba(0,0,0,.25);display:grid;grid-template-columns:1.32fr .68fr;isolation:isolate}
-    .business-card:before{content:"";position:absolute;inset:0;background:
-      radial-gradient(circle at 18% 25%,color-mix(in srgb,var(--primary) 80%, transparent),transparent 28%),
-      linear-gradient(125deg,transparent 0 53%,rgba(255,255,255,.04) 53% 54%,transparent 54%);z-index:-2}
-    .business-card:after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-190px;top:-190px;background:linear-gradient(145deg,var(--primary),var(--secondary));z-index:-1;box-shadow:0 0 0 65px rgba(255,255,255,.035)}
-    .card-left{padding:68px 72px;display:flex;flex-direction:column}.brand-pill{display:inline-flex;align-items:center;gap:10px;width:max-content;padding:9px 15px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12);font-size:14px;font-weight:700}.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--secondary)}
-    .card-name{font-family:"Playfair Display",serif;font-size:64px;line-height:1.02;margin-top:76px;max-width:650px}.card-role{font-size:21px;color:#d1d5db;margin-top:15px;font-weight:600}.card-details{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:16px 28px}.detail{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:#f3f4f6}.detail i{color:var(--secondary);margin-top:3px;width:18px}.detail span{word-break:break-word}
-    .card-right{padding:56px 50px 56px 25px;display:flex;align-items:flex-end;justify-content:flex-end}.qr-premium{background:#fff;padding:20px;border-radius:25px;box-shadow:0 18px 38px rgba(0,0,0,.25);position:relative}.qr-premium:after{content:"SCAN TO SAVE";position:absolute;left:50%;transform:translateX(-50%);bottom:-34px;color:#fff;white-space:nowrap;font-size:12px;font-weight:800;letter-spacing:.18em}
 
-    .business-card.theme-minimal{background:#f8fafc;color:#111;border:1px solid #e5e7eb;grid-template-columns:1fr 360px}
-    .business-card.theme-minimal:before{background:linear-gradient(90deg,#0f4c81 0 14px,transparent 14px)}
-    .business-card.theme-minimal:after{width:330px;height:330px;right:-125px;top:-125px;background:rgba(15,76,129,.08);box-shadow:none}
-    .theme-minimal .brand-pill{background:#eaf5ff;border-color:#cfe8fb;color:#0f4c81}.theme-minimal .brand-dot{background:#0f4c81}
-    .theme-minimal .card-name{font-family:Manrope,sans-serif;color:#111;font-weight:800}.theme-minimal .card-role{color:#64748b}.theme-minimal .detail{color:#334155}.theme-minimal .detail i{color:#0f4c81}.theme-minimal .qr-premium:after{color:#0f4c81}
-    .business-card.theme-split{background:linear-gradient(90deg,#fff 0 66%,#064e3b 66%);color:#111;grid-template-columns:1fr 360px}
-    .business-card.theme-split:before{background:linear-gradient(135deg,rgba(52,211,153,.18),transparent 38%)}.business-card.theme-split:after{display:none}
-    .theme-split .brand-pill{background:#ecfdf5;border-color:#a7f3d0;color:#064e3b}.theme-split .brand-dot{background:#34d399}.theme-split .card-name{color:#111}.theme-split .card-role{color:#475569}.theme-split .detail{color:#1f2937}.theme-split .detail i{color:#059669}.theme-split .card-right{align-items:center;justify-content:center;padding:40px}.theme-split .qr-premium:after{color:#fff}
-    .business-card.theme-luxury{background:linear-gradient(135deg,#170f2a,#2b1746 62%,#3f1f63);grid-template-columns:1.25fr .75fr;border:1px solid rgba(255,255,255,.12)}
-    .business-card.theme-luxury:before{background:radial-gradient(circle at 12% 15%,rgba(212,175,55,.28),transparent 30%),linear-gradient(120deg,transparent 0 49%,rgba(212,175,55,.16) 49% 50%,transparent 50%)}
-    .business-card.theme-luxury:after{background:linear-gradient(145deg,#d4af37,#f6e27a);box-shadow:0 0 0 65px rgba(212,175,55,.06)}
-    .theme-luxury .brand-pill{background:rgba(212,175,55,.12);border-color:rgba(212,175,55,.35);color:#f8e7a1}.theme-luxury .brand-dot{background:#d4af37}.theme-luxury .detail i{color:#d4af37}.theme-luxury .card-role{color:#e9d5ff}
-    .action-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}.download-btn{background:#111!important;color:#fff!important;border:0;border-radius:13px;padding:12px 20px;font-weight:800;box-shadow:none!important}.download-btn:hover,.download-btn:focus,.download-btn:active{background:#111!important;color:#fff!important}.new-btn{background:#eef0f3;color:#111;border:0;border-radius:13px;padding:12px 20px;font-weight:800}
-    .status{display:none;margin-bottom:18px;border-radius:14px;padding:12px 14px;font-weight:700}.status.show{display:block}.status.success{background:#ecfdf5;color:#065f46}.status.error{background:#fef2f2;color:#991b1b}.status.info{background:#eff6ff;color:#1e40af}
-    @media(max-width:768px){body{padding:14px 0}.hero,.app-body{padding:25px}.business-card{transform:scale(.56);transform-origin:top left;margin-bottom:-250px}.business-card-wrap{width:100%;height:360px}.card-details{grid-template-columns:1fr}.theme-picker{gap:6px}}
+    [data-bs-theme="dark"] {
+      --primary: #e2665f;
+      --secondary: #d4b64a;
+      --dark: #eef1ea;
+      --muted: #9aa79e;
+      --panel-bg: rgba(20, 26, 22, 0.72);
+      --card-bg: rgba(28, 34, 30, 0.72);
+      --border-color: #2c342e;
+      --text-color: #eef1ea;
+      --input-bg: rgba(46, 54, 48, 0.6);
+      --input-border: #3a433c;
+      --page-bg-1: #10140f;
+      --page-bg-2: #171f19;
+      --ring: rgba(226, 102, 95, 0.28);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --drop-bg: rgba(212, 182, 74, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Manrope', sans-serif;
+      color: var(--text-color);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(179, 146, 47, 0.12), transparent 26%),
+        radial-gradient(circle at 92% 18%, rgba(193, 68, 61, 0.08), transparent 26%),
+        linear-gradient(135deg, var(--page-bg-1), var(--page-bg-2));
+      padding: 36px 0;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .mono { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em; }
+
+    .main-container { max-width: 1040px; }
+
+    .app-shell {
+      background: var(--panel-bg);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--glass-border);
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 28px 80px rgba(15, 25, 20, 0.15);
+    }
+
+    .hero {
+      padding: 44px 44px 50px;
+      background: linear-gradient(125deg, #101a15 0%, #16241f 55%, #23301f 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    /* ledger-line texture instead of blurred blob decoration */
+    .hero:before {
+      content: "";
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        transparent, transparent 27px,
+        rgba(255,255,255,0.045) 27px, rgba(255,255,255,0.045) 28px
+      );
+      pointer-events: none;
+    }
+    /* stamp / seal ring, the signature element */
+    .hero:after {
+      content: "";
+      position: absolute; width: 168px; height: 168px; border-radius: 50%;
+      right: 34px; top: -46px;
+      border: 1.5px dashed rgba(212, 182, 74, 0.55);
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .hero h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(28px, 4vw, 46px); letter-spacing: -0.6px; }
+    .hero p { margin: 8px 0 0; color: #c9d1c7; }
+
+    .theme-toggle-btn {
+      position: absolute; right: 20px; top: 20px; z-index: 10;
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff; padding: 10px 16px; border-radius: 50px; font-weight: 600;
+      backdrop-filter: blur(5px); transition: 0.2s;
+    }
+    .theme-toggle-btn:hover { background: rgba(255, 255, 255, 0.22); color: #fff; }
+
+    .hero-badge {
+      display: inline-flex; gap: 8px; align-items: center; padding: 8px 14px; border-radius: 999px;
+      background: rgba(212, 182, 74, .12); border: 1px solid rgba(212, 182, 74, .3);
+      color: #f3e6ae;
+      font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;
+    }
+
+    .app-body { padding: 38px; }
+    .section-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 18px; padding: 25px; box-shadow: 0 10px 30px rgba(15, 25, 20, 0.03);
+      margin-bottom: 20px; transition: background 0.3s, border 0.3s;
+    }
+
+    .section-title { font-size: 15px; font-weight: 800; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; color: var(--dark); text-transform: uppercase; letter-spacing: .04em; }
+    .section-title i { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 9px; background: var(--dark); color: var(--page-bg-1); }
+
+    .form-label { font-weight: 700; font-size: 13px; color: var(--dark); }
+    .form-control, .form-select { background-color: var(--input-bg); border: 1.5px solid var(--input-border); color: var(--text-color); border-radius: 11px; padding: 12px 14px; box-shadow: none; }
+    .form-control:focus, .form-select:focus { background-color: var(--input-bg); color: var(--text-color); border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring); }
+
+    .theme-picker { display: flex; gap: 10px; flex-wrap: wrap; }
+    .theme-chip { border-radius: 12px; padding: 7px; background: var(--input-bg); border: 1.5px solid var(--input-border); cursor: pointer; transition: .2s; display: flex; flex-direction: column; gap: 6px; align-items: center; font-weight: 800; color: var(--dark); }
+    .theme-chip small { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; }
+    .theme-chip:hover { transform: translateY(-2px); }
+    .theme-chip.active { border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring); }
+    .swatch { width: 100px; height: 52px; border-radius: 8px; display: block; }
+    .swatch.ledger { background: linear-gradient(135deg, #16241f, #b3922f); }
+    .swatch.mono { background: linear-gradient(135deg, #111111 50%, #f4f4f2 50%); }
+    .swatch.coral { background: linear-gradient(90deg, #f2efe6 55%, #c1443d 55%); }
+    .swatch.goldseal { background: linear-gradient(135deg, #241531, #d4b64a); }
+
+    .btn-main { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; border: 0; border-radius: 13px; padding: 14px 20px; font-weight: 800; box-shadow: 0 12px 25px var(--ring); }
+    .btn-main:hover { color: #fff; transform: translateY(-1px); opacity: 0.92; }
+    .btn-soft { background: var(--input-border); border: 0; border-radius: 13px; padding: 14px 20px; font-weight: 800; color: var(--dark); }
+    .btn-soft:hover { background: var(--border-color); color: var(--dark); }
+
+    /* === LOGO DRAG & DROP UPLOAD === */
+    .logo-upload-area {
+      position: relative;
+      border: 2px dashed var(--input-border);
+      border-radius: 14px;
+      background: var(--drop-bg);
+      padding: 18px;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .logo-upload-area:hover { border-color: var(--secondary); }
+    .logo-upload-area.drag-over {
+      border-color: var(--primary);
+      background: var(--ring);
+    }
+    .logo-drop-content { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 10px 0; color: var(--muted); }
+    .logo-drop-content i { font-size: 26px; color: var(--secondary); margin-bottom: 4px; }
+    .logo-drop-content p { margin: 0; font-size: 14px; color: var(--text-color); }
+    .logo-drop-content small { font-size: 12px; }
+
+    .logo-preview-content { display: flex; align-items: center; gap: 16px; }
+    .logo-preview-thumb {
+      width: 72px; height: 72px; border-radius: 12px; background: #fff;
+      display: grid; place-items: center; padding: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      flex-shrink: 0; border: 1px solid var(--input-border);
+    }
+    .logo-preview-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .logo-preview-info { flex: 1; min-width: 0; }
+    .logo-preview-info .fname { font-weight: 700; font-size: 13px; color: var(--text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+    .logo-preview-info .fsize { font-size: 12px; color: var(--muted); }
+    .remove-logo-btn {
+      border: 0; background: rgba(220, 38, 38, 0.1); color: #dc2626; width: 34px; height: 34px;
+      border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; transition: .2s;
+    }
+    .remove-logo-btn:hover { background: #dc2626; color: #fff; }
+
+    .result-panel { display: none; }
+    .result-panel.show { display: block; animation: rise .4s ease; }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .view-tabs { display: none; gap: 10px; justify-content: center; margin: 25px 0; }
+    .view-tabs.show { display: flex; }
+    .tab-btn { border: 1px solid var(--input-border); background: var(--card-bg); border-radius: 999px; padding: 10px 18px; font-weight: 800; color: var(--muted); }
+    .tab-btn.active { background: var(--dark); color: var(--page-bg-1); border-color: var(--dark); }
+
+    .qr-box { display: inline-grid; place-items: center; background: #fff; padding: 18px; border-radius: 20px; box-shadow: 0 12px 35px rgba(15,25,20,.1); }
+    .business-card-wrap { overflow: auto; padding: 14px; }
+
+    /* ===================== BUSINESS CARD ===================== */
+    .business-card {
+      width: 1050px; height: 600px; position: relative; overflow: hidden; border-radius: 26px;
+      background: #16241f; color: #fff;
+      box-shadow: 0 30px 70px rgba(15,25,20,.28);
+      display: grid; grid-template-columns: 1.32fr .68fr; isolation: isolate;
+      font-family: 'Manrope', sans-serif;
+    }
+    /* ledger rule texture */
+    .business-card:before {
+      content: ""; position: absolute; inset: 0; z-index: -2;
+      background: repeating-linear-gradient(
+        transparent, transparent 29px,
+        rgba(255,255,255,0.035) 29px, rgba(255,255,255,0.035) 30px
+      );
+    }
+    /* soft gold glow, recolored decorative blob */
+    .business-card:after {
+      content: ""; position: absolute; width: 480px; height: 480px; border-radius: 50%;
+      right: -180px; top: -180px; z-index: -1;
+      background: radial-gradient(circle, rgba(179,146,47,.5), rgba(179,146,47,0) 68%);
+    }
+
+    .card-left { padding: 64px 68px; display: flex; flex-direction: column; position: relative; }
+    .brand-pill { display: inline-flex; align-items: center; gap: 10px; width: max-content;     height: max-content;
+    padding: 15px 50px; border-radius: 999px; background: rgba(212,182,74,.12); border: 1px solid rgba(212,182,74,.3); font-size: 14px; font-weight: 700; color: #f3e6ae; }
+    .brand-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--secondary); display: inline-block; }
+    .brand-logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    display: none;
+    padding: 4px;
+    margin-right: 10px;
+    border: 1px solid rgba(255,255,255,.15);
+}
+    .card-name { font-family: "Fraunces", serif; font-weight: 600; font-size: 60px; line-height: 1.05; margin-top: 68px; max-width: 650px; color: #fff; }
+    .card-role { font-size: 20px; color: #c9d1c7; margin-top: 14px; font-weight: 600; }
+    .card-details { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; }
+    .detail { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; color: #eef1ea; }
+    .detail i { color: var(--secondary); margin-top: 3px; width: 18px; }
+    .detail span { word-break: break-word; }
+
+    /* signature stamp mark, present on every theme */
+    .stamp-mark {
+      position: absolute; top: 40px; right: 40px;
+      width: 84px; height: 84px; border-radius: 50%;
+      border: 1.5px dashed rgba(212, 182, 74, .55);
+      display: flex; align-items: center; justify-content: center;
+      transform: rotate(-9deg);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+      color: #f3e6ae; text-align: center; line-height: 1.3; padding: 8px;
+    }
+
+    .card-right { padding: 54px 48px 54px 24px; display: flex; align-items: flex-end; justify-content: flex-end; }
+    .qr-premium { background: #fff; padding: 20px; border-radius: 22px; box-shadow: 0 18px 38px rgba(15,25,20,.25); position: relative; }
+    .qr-premium:after { content: "SCAN TO SAVE"; position: absolute; left: 50%; transform: translateX(-50%); bottom: -32px; color: #fff; white-space: nowrap; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .2em; }
+
+    /* ============ THEME VARIANTS ============ */
+
+    /* Studio Mono: high-contrast black & white, minimal grotesk */
+    .business-card.theme-mono { background: #f4f4f2; color: #111; border: 1px solid #e2e2df; grid-template-columns: 1fr 360px; }
+    .business-card.theme-mono:before { background: repeating-linear-gradient(transparent, transparent 29px, rgba(0,0,0,0.035) 29px, rgba(0,0,0,0.035) 30px); }
+    .business-card.theme-mono:after { display: none; }
+    .theme-mono .brand-pill { background: #111; border-color: #111; color: #f4f4f2; }
+    .theme-mono .brand-dot { background: #f4f4f2; }
+    .theme-mono .card-name { font-family: 'Manrope', sans-serif; font-weight: 800; color: #111; }
+    .theme-mono .card-role { color: #55554f; }
+    .theme-mono .detail { color: #1c1c1a; }
+    .theme-mono .detail i { color: #111; }
+    .theme-mono .qr-premium:after { color: #111; }
+    .theme-mono .stamp-mark { border-color: rgba(17,17,17,.4); color: #111; }
+
+    /* Coral Split: paper left, stamp-red right block */
+    .business-card.theme-coral { background: linear-gradient(90deg, #f4f1e8 0 66%, #c1443d 66%); color: #17241f; grid-template-columns: 1fr 360px; }
+    .business-card.theme-coral:before { background: repeating-linear-gradient(transparent, transparent 29px, rgba(23,36,31,0.03) 29px, rgba(23,36,31,0.03) 30px); }
+    .business-card.theme-coral:after { display: none; }
+    .theme-coral .brand-pill { background: #fff; border-color: #ecdccf; color: #c1443d; }
+    .theme-coral .brand-dot { background: #c1443d; }
+    .theme-coral .card-name { color: #17241f; }
+    .theme-coral .card-role { color: #6b5f52; }
+    .theme-coral .detail { color: #2a2420; }
+    .theme-coral .detail i { color: #a5372f; }
+    .theme-coral .card-right { align-items: center; justify-content: center; padding: 40px; }
+    .theme-coral .qr-premium:after { color: #fff; }
+    .theme-coral .stamp-mark { border-color: rgba(23,36,31,.35); color: #17241f; }
+
+    /* Gold Seal: deep plum with heavy gold foil */
+    .business-card.theme-goldseal { background: linear-gradient(135deg, #1c1224, #2a1830 60%, #3a2038); border: 1px solid rgba(212,182,74,.18); }
+    .business-card.theme-goldseal:before { background: repeating-linear-gradient(transparent, transparent 29px, rgba(212,182,74,0.05) 29px, rgba(212,182,74,0.05) 30px); }
+    .business-card.theme-goldseal:after { background: radial-gradient(circle, rgba(212,182,74,.45), rgba(212,182,74,0) 68%); }
+    .theme-goldseal .brand-pill { background: rgba(212,182,74,.14); border-color: rgba(212,182,74,.4); color: #f6e6a3; }
+    .theme-goldseal .brand-dot { background: #d4b64a; }
+    .theme-goldseal .card-name { color: #f6e6a3; }
+    .theme-goldseal .card-role { color: #d9c7e8; }
+    .theme-goldseal .detail { color: #ece1f2; }
+    .theme-goldseal .detail i { color: #d4b64a; }
+    .theme-goldseal .stamp-mark { border-color: rgba(212,182,74,.7); color: #f6e6a3; }
+
+    .action-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+    .download-btn { background: var(--dark) !important; color: var(--page-bg-1) !important; border: 0; border-radius: 12px; padding: 12px 20px; font-weight: 800; box-shadow: none !important; }
+    .download-btn:hover { opacity: 0.9; }
+    .download-btn.outline { background: transparent !important; color: var(--dark) !important; border: 1.5px solid var(--input-border) !important; }
+    .new-btn { background: var(--input-border); color: var(--dark); border: 0; border-radius: 12px; padding: 12px 20px; font-weight: 800; }
+
+    .status { display: none; margin-bottom: 18px; border-radius: 13px; padding: 12px 14px; font-weight: 700; }
+    .status.show { display: block; }
+    .status.success { background: #e7f2e5; color: #234a1e; }
+    [data-bs-theme="dark"] .status.success { background: #1f3b2c; color: #8fd39c; }
+    .status.error { background: #fbe9e7; color: #8a231d; }
+    [data-bs-theme="dark"] .status.error { background: #4a201d; color: #f2a49e; }
+    .status.info { background: #eef1ea; color: #3a4a3f; }
+
+    @media(max-width:768px){
+      body { padding: 14px 0; }
+      .hero, .app-body { padding: 22px 20px; }
+      .theme-toggle-btn { position: static; margin-bottom: 14px; display: inline-flex; }
+      .business-card { transform: scale(.56); transform-origin: top left; margin-bottom: -260px; }
+      .business-card-wrap { width: 100%; height: 340px; }
+      .card-details { grid-template-columns: 1fr; }
+      .theme-picker { gap: 6px; }
+      .logo-preview-content { flex-wrap: wrap; }
+    }
+
+    @media(max-width:480px){
+      .app-body { padding: 16px 12px; }
+      .section-card { padding: 18px 16px; border-radius: 16px; }
+      .hero { padding: 20px 16px; }
+      .hero h1 { font-size: 26px; }
+      .business-card { transform: scale(.32); margin-bottom: -400px; }
+      .business-card-wrap { height: 220px; }
+      .action-row { flex-direction: column; }
+      .action-row button { width: 100%; }
+      .theme-chip { flex: 1 1 calc(50% - 10px); }
+      .swatch { width: 100%; }
+    }
   </style>
 </head>
 <body>
 <div class="container main-container">
   <div class="app-shell">
     <header class="hero">
-      <div class="hero-badge"><i class="fa-solid fa-gem"></i> Premium digital identity</div>
+      <button class="theme-toggle-btn" id="themeToggle" type="button">
+        <i class="fa-solid fa-moon me-2"></i>Dark Mode
+      </button>
+      <div class="hero-badge"><i class="fa-solid fa-stamp"></i> Signed · Sealed · Scannable</div>
       <h1>QR Business Card Generator</h1>
       <p>Create a stylish contact QR and download a print-ready premium business card.</p>
     </header>
@@ -76,28 +355,112 @@
           <div class="row g-3">
             <div class="col-md-6"><label class="form-label">First name *</label><input id="firstName" class="form-control" required placeholder="John"></div>
             <div class="col-md-6"><label class="form-label">Last name *</label><input id="lastName" class="form-control" required placeholder="Doe"></div>
-            <div class="col-md-6"><label class="form-label">Mobile number *</label><div class="input-group"><select id="countryCode" class="form-select" style="max-width:155px" aria-label="Country code"><option value="+44">🇬🇧 +44 UK</option><option value="+94">🇱🇰 +94 Sri Lanka</option><option value="+49">🇩🇪 +49 Germany</option><option value="+1">🇺🇸 +1 USA/Canada</option><option value="+91">🇮🇳 +91 India</option><option value="+41">🇨🇭 +41 Switzerland</option><option value="+33">🇫🇷 +33 France</option><option value="+39">🇮🇹 +39 Italy</option><option value="+34">🇪🇸 +34 Spain</option><option value="+31">🇳🇱 +31 Netherlands</option><option value="+32">🇧🇪 +32 Belgium</option><option value="+43">🇦🇹 +43 Austria</option><option value="+353">🇮🇪 +353 Ireland</option><option value="+46">🇸🇪 +46 Sweden</option><option value="+47">🇳🇴 +47 Norway</option><option value="+45">🇩🇰 +45 Denmark</option><option value="+358">🇫🇮 +358 Finland</option><option value="+48">🇵🇱 +48 Poland</option><option value="+351">🇵🇹 +351 Portugal</option><option value="+30">🇬🇷 +30 Greece</option><option value="+40">🇷🇴 +40 Romania</option><option value="+420">🇨🇿 +420 Czechia</option><option value="+36">🇭🇺 +36 Hungary</option><option value="+971">🇦🇪 +971 UAE</option><option value="+974">🇶🇦 +974 Qatar</option><option value="+966">🇸🇦 +966 Saudi Arabia</option><option value="+965">🇰🇼 +965 Kuwait</option><option value="+968">🇴🇲 +968 Oman</option><option value="+973">🇧🇭 +973 Bahrain</option><option value="+60">🇲🇾 +60 Malaysia</option><option value="+65">🇸🇬 +65 Singapore</option><option value="+61">🇦🇺 +61 Australia</option><option value="+64">🇳🇿 +64 New Zealand</option><option value="+81">🇯🇵 +81 Japan</option><option value="+82">🇰🇷 +82 South Korea</option><option value="+86">🇨🇳 +86 China</option><option value="+92">🇵🇰 +92 Pakistan</option><option value="+880">🇧🇩 +880 Bangladesh</option><option value="+977">🇳🇵 +977 Nepal</option><option value="+27">🇿🇦 +27 South Africa</option><option value="+234">🇳🇬 +234 Nigeria</option><option value="+254">🇰🇪 +254 Kenya</option></select><input id="mobileNumber" type="tel" inputmode="numeric" class="form-control" required placeholder="7000 000000" aria-describedby="mobileHelp mobileError"></div><small id="mobileHelp" class="text-muted">Select the country code, then enter the mobile number without the country code.</small><div id="mobileError" class="invalid-feedback d-block" style="display:none!important"></div></div>
+            <div class="col-md-6">
+              <label class="form-label">Mobile number *</label>
+              <div class="input-group">
+                <select id="countryCode" class="form-select" style="max-width:155px" aria-label="Country code">
+                  <option value="+44">🇬🇧 +44 UK</option>
+                  <option value="+94">🇱🇰 +94 Sri Lanka</option>
+                  <option value="+49">🇩🇪 +49 Germany</option>
+                  <option value="+1">🇺🇸 +1 USA/Canada</option>
+                  <option value="+91">🇮🇳 +91 India</option>
+                  <option value="+41">🇨🇭 +41 Switzerland</option>
+                  <option value="+33">🇫🇷 +33 France</option>
+                  <option value="+39">🇮🇹 +39 Italy</option>
+                  <option value="+34">🇪🇸 +34 Spain</option>
+                  <option value="+31">🇳🇱 +31 Netherlands</option>
+                  <option value="+32">🇧🇪 +32 Belgium</option>
+                  <option value="+43">🇦🇹 +43 Austria</option>
+                  <option value="+353">🇮🇪 +353 Ireland</option>
+                  <option value="+46">🇸🇪 +46 Sweden</option>
+                  <option value="+47">🇳🇴 +47 Norway</option>
+                  <option value="+45">🇩🇰 +45 Denmark</option>
+                  <option value="+358">🇫🇮 +358 Finland</option>
+                  <option value="+48">🇵🇱 +48 Poland</option>
+                  <option value="+351">🇵🇹 +351 Portugal</option>
+                  <option value="+30">🇬🇷 +30 Greece</option>
+                  <option value="+40">🇷🇴 +40 Romania</option>
+                  <option value="+420">🇨🇿 +420 Czechia</option>
+                  <option value="+36">🇭🇺 +36 Hungary</option>
+                  <option value="+971">🇦🇪 +971 UAE</option>
+                  <option value="+974">🇶🇦 +974 Qatar</option>
+                  <option value="+966">🇸🇦 +966 Saudi Arabia</option>
+                  <option value="+965">🇰🇼 +965 Kuwait</option>
+                  <option value="+968">🇴🇲 +968 Oman</option>
+                  <option value="+973">🇧🇭 +973 Bahrain</option>
+                  <option value="+60">🇲🇾 +60 Malaysia</option>
+                  <option value="+65">🇸🇬 +65 Singapore</option>
+                  <option value="+61">🇦🇺 +61 Australia</option>
+                  <option value="+64">🇳🇿 +64 New Zealand</option>
+                  <option value="+81">🇯🇵 +81 Japan</option>
+                  <option value="+82">🇰🇷 +82 South Korea</option>
+                  <option value="+86">🇨🇳 +86 China</option>
+                  <option value="+92">🇵🇰 +92 Pakistan</option>
+                  <option value="+880">🇧🇩 +880 Bangladesh</option>
+                  <option value="+977">🇳🇵 +977 Nepal</option>
+                  <option value="+27">🇿🇦 +27 South Africa</option>
+                  <option value="+234">🇳🇬 +234 Nigeria</option>
+                  <option value="+254">🇰🇪 +254 Kenya</option>
+                </select>
+                <input id="mobileNumber" type="tel" inputmode="numeric" class="form-control" required placeholder="7777 000000">
+              </div>
+              <small id="mobileHelp" class="text-muted">Select the country code, then enter the mobile number.</small>
+              <div id="mobileError" class="invalid-feedback d-block" style="display:none!important"></div>
+            </div>
             <div class="col-md-6"><label class="form-label">Email</label><input id="email" type="email" class="form-control" placeholder="john@example.com"></div>
           </div>
         </div>
+
         <div class="section-card">
           <div class="section-title"><i class="fa-solid fa-briefcase"></i> Professional details</div>
           <div class="row g-3">
             <div class="col-md-6"><label class="form-label">Company</label><input id="company" class="form-control" placeholder="Your Company"></div>
-            <div class="col-md-6"><label class="form-label">Job position</label><input id="jobPosition" class="form-control" list="jobPositionList" placeholder="Select or type any job position" autocomplete="off"><datalist id="jobPositionList"><option value="Accountant"></option><option value="Accounts Assistant"></option><option value="Accounts Manager"></option><option value="Actor"></option><option value="Actress"></option><option value="Administrative Assistant"></option><option value="Administrator"></option><option value="Advertising Manager"></option><option value="Aerospace Engineer"></option><option value="Agricultural Engineer"></option><option value="Architect"></option><option value="Art Director"></option><option value="Artist"></option><option value="Assistant"></option><option value="Assistant Director"></option><option value="Assistant Manager"></option><option value="Attorney"></option><option value="Auditor"></option><option value="Baker"></option><option value="Bank Manager"></option><option value="Barber"></option><option value="Bartender"></option><option value="Beautician"></option><option value="Biomedical Engineer"></option><option value="Brand Ambassador"></option><option value="Brand Manager"></option><option value="Branch Manager"></option><option value="Builder"></option><option value="Business Analyst"></option><option value="Business Consultant"></option><option value="Business Development Executive"></option><option value="Business Development Manager"></option><option value="Business Owner"></option><option value="Butcher"></option><option value="Call Centre Agent"></option><option value="Camera Operator"></option><option value="Carpenter"></option><option value="Cashier"></option><option value="Caterer"></option><option value="CEO - Chief Executive Officer"></option><option value="Chef"></option><option value="Chemical Engineer"></option><option value="Civil Engineer"></option><option value="Cleaner"></option><option value="Clinical Psychologist"></option><option value="COO - Chief Operating Officer"></option><option value="Content Creator"></option><option value="Content Writer"></option><option value="Contractor"></option><option value="Cook"></option><option value="Coordinator"></option><option value="Copywriter"></option><option value="Counsellor"></option><option value="Creative Director"></option><option value="CTO - Chief Technology Officer"></option><option value="Customer Service Executive"></option><option value="Customer Service Manager"></option><option value="Data Analyst"></option><option value="Data Engineer"></option><option value="Data Scientist"></option><option value="Dentist"></option><option value="Designer"></option><option value="Digital Marketing Executive"></option><option value="Digital Marketing Manager"></option><option value="Director"></option><option value="Doctor"></option><option value="Driver"></option><option value="Editor"></option><option value="Electrical Engineer"></option><option value="Electrician"></option><option value="Engineer"></option><option value="Entrepreneur"></option><option value="Event Coordinator"></option><option value="Event Manager"></option><option value="Executive"></option><option value="Executive Assistant"></option><option value="Fashion Designer"></option><option value="Finance Assistant"></option><option value="Finance Manager"></option><option value="Financial Advisor"></option><option value="Firefighter"></option><option value="Fitness Instructor"></option><option value="Florist"></option><option value="Food Technologist"></option><option value="Founder"></option><option value="Freelancer"></option><option value="Front Desk Officer"></option><option value="General Manager"></option><option value="Graphic Designer"></option><option value="Hairdresser"></option><option value="Head Chef"></option><option value="Head of Department"></option><option value="Healthcare Assistant"></option><option value="Hotel Manager"></option><option value="HR Assistant"></option><option value="HR Executive"></option><option value="HR Manager"></option><option value="Illustrator"></option><option value="Interior Designer"></option><option value="Intern"></option><option value="IT Administrator"></option><option value="IT Consultant"></option><option value="IT Manager"></option><option value="Journalist"></option><option value="Lab Technician"></option><option value="Lawyer"></option><option value="Lecturer"></option><option value="Legal Advisor"></option><option value="Logistics Coordinator"></option><option value="Logistics Manager"></option><option value="Machine Operator"></option><option value="Managing Director"></option><option value="Marketing Assistant"></option><option value="Marketing Executive"></option><option value="Marketing Manager"></option><option value="Mechanic"></option><option value="Medical Assistant"></option><option value="Midwife"></option><option value="Mobile App Developer"></option><option value="Motion Graphic Designer"></option><option value="Musician"></option><option value="Network Administrator"></option><option value="Nurse"></option><option value="Nutritionist"></option><option value="Office Assistant"></option><option value="Office Manager"></option><option value="Operations Executive"></option><option value="Operations Manager"></option><option value="Owner"></option><option value="Painter"></option><option value="Personal Assistant"></option><option value="Pharmacist"></option><option value="Photographer"></option><option value="Physiotherapist"></option><option value="Plumber"></option><option value="Police Officer"></option><option value="President"></option><option value="Principal"></option><option value="Product Designer"></option><option value="Product Manager"></option><option value="Production Manager"></option><option value="Professor"></option><option value="Program Manager"></option><option value="Project Coordinator"></option><option value="Project Manager"></option><option value="Property Consultant"></option><option value="Psychologist"></option><option value="Public Relations Officer"></option><option value="Quality Assurance Engineer"></option><option value="Real Estate Agent"></option><option value="Receptionist"></option><option value="Research Assistant"></option><option value="Researcher"></option><option value="Restaurant Manager"></option><option value="Retail Assistant"></option><option value="Sales Assistant"></option><option value="Sales Executive"></option><option value="Sales Manager"></option><option value="School Teacher"></option><option value="Secretary"></option><option value="Security Officer"></option><option value="Senior Accountant"></option><option value="Senior Analyst"></option><option value="Senior Consultant"></option><option value="Senior Developer"></option><option value="Senior Engineer"></option><option value="Senior Executive"></option><option value="Senior Manager"></option><option value="Social Media Manager"></option><option value="Software Developer"></option><option value="Software Engineer"></option><option value="Sous Chef"></option><option value="Specialist"></option><option value="Store Manager"></option><option value="Student"></option><option value="Supervisor"></option><option value="System Administrator"></option><option value="Tailor"></option><option value="Taxi Driver"></option><option value="Teacher"></option><option value="Team Lead"></option><option value="Technician"></option><option value="Translator"></option><option value="Travel Agent"></option><option value="UI Designer"></option><option value="UI/UX Designer"></option><option value="University Lecturer"></option><option value="Veterinarian"></option><option value="Vice President"></option><option value="Videographer"></option><option value="Waiter"></option><option value="Waitress"></option><option value="Warehouse Assistant"></option><option value="Warehouse Manager"></option><option value="Web Designer"></option><option value="Web Developer"></option><option value="Writer"></option><option value="Other / Custom Position"></option></datalist><small class="text-muted">Choose from the list or type a custom position.</small></div>
+            <div class="col-md-6"><label class="form-label">Job position</label><input id="jobPosition" class="form-control" list="jobPositionList" placeholder="Select or type any job position" autocomplete="off"><datalist id="jobPositionList"><option value="Accountant"></option><option value="Manager"></option><option value="Director"></option><option value="Founder"></option><option value="CEO - Chief Executive Officer"></option><option value="Engineer"></option><option value="Designer"></option><option value="Consultant"></option><option value="Other / Custom Position"></option></datalist><small class="text-muted">Choose from the list or type a custom position.</small></div>
             <div class="col-md-6"><label class="form-label">Website</label><input id="website" class="form-control" placeholder="www.example.com"></div>
             <div class="col-md-6"><label class="form-label">Address</label><input id="address" class="form-control" placeholder="London, United Kingdom"></div>
+
+            <div class="col-md-12">
+              <label class="form-label">Company Logo</label>
+
+              <div class="logo-upload-area" id="logoDropZone">
+                <input id="companyLogo" type="file" accept="image/png,image/jpeg,image/jpg,image/svg+xml" hidden>
+
+                <div id="logoDropContent" class="logo-drop-content">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <p><strong>Click to upload</strong> or drag &amp; drop your logo</p>
+                  <small>PNG, JPG or SVG · square or horizontal works best</small>
+                </div>
+
+                <div id="logoPreviewContent" class="logo-preview-content" style="display:none">
+                  <div class="logo-preview-thumb"><img id="logoPreviewImg" src="" alt="Logo preview"></div>
+                  <div class="logo-preview-info">
+                    <span id="logoFileName" class="fname">logo.png</span>
+                    <span id="logoFileSize" class="fsize"></span>
+                  </div>
+                  <button type="button" id="removeLogoBtn" class="remove-logo-btn" title="Remove logo" aria-label="Remove logo">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-check form-switch mt-2">
+                <input class="form-check-input" type="checkbox" id="ignoreLogo">
+                <label class="form-check-label fw-bold" style="font-size:13px" for="ignoreLogo">Ignore logo (show brand dot instead)</label>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="section-card">
-          <div class="section-title"><i class="fa-solid fa-palette"></i> Select premium business card theme</div>
+          <div class="section-title"><i class="fa-solid fa-stamp"></i> Select premium business card theme</div>
           <div class="theme-picker">
-            <button type="button" class="theme-chip active" data-theme="executive" aria-label="Executive"><span class="swatch orange"></span><small>Executive</small></button>
-            <button type="button" class="theme-chip" data-theme="minimal" aria-label="Minimal"><span class="swatch blue"></span><small>Minimal</small></button>
-            <button type="button" class="theme-chip" data-theme="split" aria-label="Split"><span class="swatch green"></span><small>Split</small></button>
-            <button type="button" class="theme-chip" data-theme="luxury" aria-label="Luxury"><span class="swatch purple"></span><small>Luxury</small></button>
+            <button type="button" class="theme-chip active" data-theme="ledger"><span class="swatch ledger"></span><small>Ledger</small></button>
+            <button type="button" class="theme-chip" data-theme="mono"><span class="swatch mono"></span><small>Studio Mono</small></button>
+            <button type="button" class="theme-chip" data-theme="coral"><span class="swatch coral"></span><small>Coral Split</small></button>
+            <button type="button" class="theme-chip" data-theme="goldseal"><span class="swatch goldseal"></span><small>Gold Seal</small></button>
           </div>
         </div>
+
         <div class="row g-2">
           <div class="col-md-8"><button class="btn btn-main w-100" type="submit"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Generate premium card</button></div>
           <div class="col-md-4"><button class="btn btn-soft w-100" type="reset"><i class="fa-solid fa-rotate-left me-2"></i>Reset</button></div>
@@ -119,8 +482,13 @@
         <h3 class="fw-bold text-center mb-3">Premium Business Card Preview</h3>
         <div class="business-card-wrap">
           <div id="businessCard" class="business-card">
+            <div class="stamp-mark">Verified<br>Contact</div>
             <div class="card-left">
-              <div id="cardCompany" class="brand-pill"><span class="brand-dot"></span>Your Company</div>
+              <div id="cardCompany" class="brand-pill">
+                <span class="brand-dot" id="cardBrandDot"></span>
+                <img class="brand-logo-img" id="cardBrandLogo" src="" alt="Logo">
+                <span id="cardCompanyName">Your Company</span>
+              </div>
               <div id="cardName" class="card-name">John Doe</div>
               <div id="cardRole" class="card-role">Creative Director</div>
               <div class="card-details">
@@ -134,48 +502,235 @@
           </div>
         </div>
         <div class="action-row">
-          <button id="downloadCard" class="download-btn"><i class="fa-solid fa-download me-2"></i>Download Business Card</button>
+          <button id="downloadCard" class="download-btn"><i class="fa-solid fa-download me-2"></i>Download Business Card (JPG)</button>
           <button id="createNew" class="new-btn"><i class="fa-solid fa-plus me-2"></i>Create New</button>
         </div>
       </section>
     </main>
   </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-bs-theme', newTheme);
+
+    if(newTheme === 'dark') {
+      themeToggle.innerHTML = '<i class="fa-solid fa-sun me-2"></i>Light Mode';
+    } else {
+      themeToggle.innerHTML = '<i class="fa-solid fa-moon me-2"></i>Dark Mode';
+    }
+  });
+
   const themes={
-    executive:{primary:'#ff7a18',secondary:'#ffb347',page1:'#fff4e8',page2:'#f8fafc',ring:'rgba(255,122,24,.18)',cardClass:''},
-    minimal:{primary:'#0f4c81',secondary:'#32a6ff',page1:'#eaf5ff',page2:'#f8fafc',ring:'rgba(50,166,255,.18)',cardClass:'theme-minimal'},
-    split:{primary:'#064e3b',secondary:'#34d399',page1:'#eafbf4',page2:'#f8fafc',ring:'rgba(52,211,153,.18)',cardClass:'theme-split'},
-    luxury:{primary:'#3b1b6f',secondary:'#d4af37',page1:'#f4ecff',page2:'#f8fafc',ring:'rgba(168,85,247,.18)',cardClass:'theme-luxury'}
+    ledger:{cardClass:''},
+    mono:{cardClass:'theme-mono'},
+    coral:{cardClass:'theme-coral'},
+    goldseal:{cardClass:'theme-goldseal'}
   };
+
   let currentVCard='';
+  let uploadedLogoBase64='';
   const $=id=>document.getElementById(id);
+
+  /* ============================================================
+     LOGO UPLOAD: click / drag & drop / preview / remove
+     ============================================================ */
+  const logoInput = $('companyLogo');
+  const dropZone = $('logoDropZone');
+  const dropContent = $('logoDropContent');
+  const previewContent = $('logoPreviewContent');
+  const previewImg = $('logoPreviewImg');
+  const removeLogoBtn = $('removeLogoBtn');
+
+  function formatBytes(bytes){
+    if(!bytes) return '';
+    const kb = bytes/1024;
+    return kb < 1024 ? `${kb.toFixed(0)} KB` : `${(kb/1024).toFixed(1)} MB`;
+  }
+
+  function handleLogoFile(file){
+    if(!file) return;
+    if(!/^image\/(png|jpe?g|svg\+xml)$/i.test(file.type)){
+      showStatus('Please upload a PNG, JPG or SVG image.','error');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = evt => {
+      uploadedLogoBase64 = evt.target.result;
+      previewImg.src = uploadedLogoBase64;
+      $('logoFileName').textContent = file.name;
+      $('logoFileSize').textContent = formatBytes(file.size);
+      dropContent.style.display = 'none';
+      previewContent.style.display = 'flex';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  dropZone.addEventListener('click', (e) => {
+    if(e.target.closest('#removeLogoBtn')) return;
+    logoInput.click();
+  });
+
+  logoInput.addEventListener('change', e => handleLogoFile(e.target.files[0]));
+
+  ['dragenter','dragover'].forEach(evtName=>{
+    dropZone.addEventListener(evtName, e => {
+      e.preventDefault(); e.stopPropagation();
+      dropZone.classList.add('drag-over');
+    });
+  });
+  ['dragleave','drop'].forEach(evtName=>{
+    dropZone.addEventListener(evtName, e => {
+      e.preventDefault(); e.stopPropagation();
+      dropZone.classList.remove('drag-over');
+    });
+  });
+  dropZone.addEventListener('drop', e => {
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if(file) handleLogoFile(file);
+  });
+
+  function clearLogo(){
+    uploadedLogoBase64 = '';
+    logoInput.value = '';
+    previewImg.src = '';
+    dropContent.style.display = 'flex';
+    previewContent.style.display = 'none';
+  }
+
+  removeLogoBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    clearLogo();
+  });
+
   function setTheme(name){
     const t=themes[name];
     const card=$('businessCard');
-    card.classList.remove('theme-minimal','theme-split','theme-luxury');
+    card.classList.remove('theme-mono','theme-coral','theme-goldseal');
     if(t.cardClass) card.classList.add(t.cardClass);
     document.querySelectorAll('.theme-chip').forEach(x=>x.classList.toggle('active',x.dataset.theme===name));
   }
+
   document.querySelectorAll('.theme-chip').forEach(btn=>btn.addEventListener('click',()=>setTheme(btn.dataset.theme)));
   function cleanSite(v){return v.replace(/^https?:\/\//i,'').replace(/\/$/,'')}
   function esc(v){return v.replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/;/g,'\\;').replace(/,/g,'\\,')}
-  function vcard(d){let x=`BEGIN:VCARD\nVERSION:3.0\nFN:${esc(d.full)}\nN:${esc(d.last)};${esc(d.first)};;;\nTEL;TYPE=CELL:${esc(d.phone)}\n`;if(d.email)x+=`EMAIL:${esc(d.email)}\n`;if(d.company)x+=`ORG:${esc(d.company)}\n`;if(d.role)x+=`TITLE:${esc(d.role)}\n`;if(d.website)x+=`URL:${/^https?:\/\//i.test(d.website)?d.website:'https://'+d.website}\n`;if(d.address)x+=`ADR;TYPE=WORK:;;${esc(d.address)};;;;\n`;return x+'END:VCARD'}
-  function showStatus(msg,type='success'){const s=$('status');s.textContent=msg;s.className='status show '+type;setTimeout(()=>s.classList.remove('show'),3500)}
+
+  function vcard(d){
+    let x=`BEGIN:VCARD\nVERSION:3.0\nFN:${esc(d.full)}\nN:${esc(d.last)};${esc(d.first)};;;\nTEL;TYPE=CELL:${esc(d.phone)}\n`;
+    if(d.email)x+=`EMAIL:${esc(d.email)}\n`;
+    if(d.company)x+=`ORG:${esc(d.company)}\n`;
+    if(d.role)x+=`TITLE:${esc(d.role)}\n`;
+    if(d.website)x+=`URL:${/^https?:\/\//i.test(d.website)?d.website:'https://'+d.website}\n`;
+    if(d.address)x+=`ADR;TYPE=WORK:;;${esc(d.address)};;;;\n`;
+    return x+'END:VCARD';
+  }
+
+  function showStatus(msg,type='success'){
+    const s=$('status');s.textContent=msg;s.className='status show '+type;
+    setTimeout(()=>s.classList.remove('show'),3500);
+  }
+
   function generateQR(target,text,size){target.innerHTML='';new QRCode(target,{text,width:size,height:size,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H})}
   function toggleField(container,value){$(container).style.display=value?'flex':'none'}
-  function validateMobile(){const input=$('mobileNumber');const error=$('mobileError');let raw=input.value.trim();const digits=raw.replace(/\D/g,'');let message='';if(!raw){message='Please enter your mobile number.'}else if(raw.includes('+')){message='Do not enter the country code here. Select it from the country-code list.'}else if(/[^0-9\s()\-]/.test(raw)){message='Mobile number can contain only numbers, spaces, brackets, or hyphens.'}else if(digits.length<6){message='This mobile number is too short. Please check and enter the full number.'}else if(digits.length>15){message='This mobile number is too long. Please check the number.'}else if(/^0+$/.test(digits)){message='Please enter a valid mobile number.'}input.classList.toggle('is-invalid',!!message);error.textContent=message;error.style.setProperty('display',message?'block':'none','important');return message?null:digits}
-  $('mobileNumber').addEventListener('input',()=>validateMobile());
-  $('countryCode').addEventListener('change',()=>{if($('mobileNumber').value.trim())validateMobile()});
-  $('contactForm').addEventListener('submit',e=>{e.preventDefault();const localDigits=validateMobile();const d={first:$('firstName').value.trim(),last:$('lastName').value.trim(),phone:localDigits?`${$('countryCode').value} ${localDigits}`:'',email:$('email').value.trim(),website:$('website').value.trim(),address:$('address').value.trim(),company:$('company').value.trim(),role:$('jobPosition').value.trim()};d.full=`${d.first} ${d.last}`.trim();if(!d.first||!d.last){showStatus('Please enter your first name and last name.','error');return}if(!localDigits){showStatus('Please correct the mobile number before generating the card.','error');$('mobileNumber').focus();return}currentVCard=vcard(d);generateQR($('qrCode'),currentVCard,230);generateQR($('cardQR'),currentVCard,210);$('cardName').textContent=d.full;$('cardRole').textContent=d.role||'Professional';$('cardCompany').innerHTML=`<span class="brand-dot"></span>${d.company||'Personal Brand'}`;$('cardPhone').textContent=d.phone;$('cardEmail').textContent=d.email;$('cardWebsite').textContent=cleanSite(d.website);$('cardAddress').textContent=d.address;toggleField('emailDetail',d.email);toggleField('webDetail',d.website);toggleField('addressDetail',d.address);$('viewTabs').classList.add('show');$('qrPanel').classList.add('show');$('cardPanel').classList.remove('show');$('qrTab').classList.add('active');$('cardTab').classList.remove('active');$('viewTabs').scrollIntoView({behavior:'smooth',block:'start'});showStatus('Premium QR and business card generated successfully.');});
+
+  function validateMobile(){
+    const input=$('mobileNumber');const error=$('mobileError');let raw=input.value.trim();const digits=raw.replace(/\D/g,'');let message='';
+    if(!raw){message='Please enter your mobile number.'}
+    else if(raw.includes('+')){message='Do not enter country code here.'}
+    else if(digits.length<6){message='Too short.'}
+    input.classList.toggle('is-invalid',!!message);
+    error.textContent=message;error.style.setProperty('display',message?'block':'none','important');
+    return message?null:digits;
+  }
+
+  $('contactForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const localDigits=validateMobile();
+    const d={first:$('firstName').value.trim(),last:$('lastName').value.trim(),phone:localDigits?`${$('countryCode').value} ${localDigits}`:'',email:$('email').value.trim(),website:$('website').value.trim(),address:$('address').value.trim(),company:$('company').value.trim(),role:$('jobPosition').value.trim()};
+    d.full=`${d.first} ${d.last}`.trim();
+    if(!d.first||!d.last){showStatus('Please enter name.','error');return}
+    if(!localDigits){showStatus('Check mobile number.','error');return}
+
+    currentVCard=vcard(d);
+    generateQR($('qrCode'),currentVCard,230);
+    generateQR($('cardQR'),currentVCard,210);
+    $('cardName').textContent=d.full;
+    $('cardRole').textContent=d.role||'Professional';
+    $('cardCompanyName').textContent=d.company||'Personal Brand';
+
+    const ignoreLogo = $('ignoreLogo').checked;
+    if (uploadedLogoBase64 && !ignoreLogo) {
+      $('cardBrandLogo').src = uploadedLogoBase64;
+      $('cardBrandLogo').style.display = 'inline-block';
+      $('cardBrandDot').style.display = 'none';
+    } else {
+      $('cardBrandLogo').src = '';
+      $('cardBrandLogo').style.display = 'none';
+      $('cardBrandDot').style.display = 'inline-block';
+    }
+
+    $('cardPhone').textContent=d.phone;
+    $('cardEmail').textContent=d.email;
+    $('cardWebsite').textContent=cleanSite(d.website);
+    $('cardAddress').textContent=d.address;
+    toggleField('emailDetail',d.email);
+    toggleField('webDetail',d.website);
+    toggleField('addressDetail',d.address);
+    $('viewTabs').classList.add('show');
+    $('qrPanel').classList.add('show');
+    $('cardPanel').classList.remove('show');
+    $('qrTab').classList.add('active');
+    $('cardTab').classList.remove('active');
+    showStatus('Generated successfully.');
+  });
+
   $('qrTab').onclick=()=>{$('qrPanel').classList.add('show');$('cardPanel').classList.remove('show');$('qrTab').classList.add('active');$('cardTab').classList.remove('active')};
   $('cardTab').onclick=()=>{$('cardPanel').classList.add('show');$('qrPanel').classList.remove('show');$('cardTab').classList.add('active');$('qrTab').classList.remove('active')};
-  $('downloadQR').onclick=()=>{const c=$('qrCode').querySelector('canvas');if(!c)return;const a=document.createElement('a');a.download=`${$('firstName').value}_${$('lastName').value}_QR.png`;a.href=c.toDataURL('image/png');a.click()};
-  $('downloadCard').onclick=()=>{const card=$('businessCard');showStatus('Preparing high-resolution business card…','info');html2canvas(card,{scale:3,backgroundColor:null,useCORS:true,logging:false,width:1050,height:600}).then(canvas=>{const a=document.createElement('a');a.download=`${$('firstName').value}_${$('lastName').value}_Premium_Business_Card.png`;a.href=canvas.toDataURL('image/png',1);a.click();showStatus('Business card downloaded successfully.')}).catch(()=>showStatus('Unable to download the card. Please try again.','error'))};
-  $('createNew').onclick=()=>{$('contactForm').reset();$('viewTabs').classList.remove('show');$('qrPanel').classList.remove('show');$('cardPanel').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'})};
-  $('contactForm').addEventListener('reset',()=>setTimeout(()=>{$('viewTabs').classList.remove('show');$('qrPanel').classList.remove('show');$('cardPanel').classList.remove('show')},0));
+
+  $('downloadQR').onclick=()=>{
+    const c=$('qrCode').querySelector('canvas');if(!c)return;
+    const a=document.createElement('a');a.download=`QR.png`;a.href=c.toDataURL('image/png');a.click();
+  };
+
+  /* Download business card as a high-quality JPG.
+     backgroundColor is set (not null) because JPG has no transparency —
+     without it, the card's rounded corners would render as solid black. */
+  $('downloadCard').onclick=()=>{
+    const card=$('businessCard');
+    const btn=$('downloadCard');
+    const originalHtml=btn.innerHTML;
+    btn.innerHTML='<i class="fa-solid fa-spinner fa-spin me-2"></i>Preparing...';
+    btn.disabled=true;
+
+    html2canvas(card,{
+      scale:3,
+      backgroundColor:'#eef1e9',
+      useCORS:true,
+      allowTaint:true,
+      logging:false,
+      width:1050,
+      height:600
+    }).then(canvas=>{
+      const a=document.createElement('a');
+      a.download=`Business_Card.jpg`;
+      a.href=canvas.toDataURL('image/jpeg',0.95);
+      a.click();
+      showStatus('Business card downloaded as JPG.');
+    }).catch(()=>{
+      showStatus('Could not generate the card image. Try again.','error');
+    }).finally(()=>{
+      btn.innerHTML=originalHtml;
+      btn.disabled=false;
+    });
+  };
+
+  $('createNew').onclick=()=>{$('contactForm').reset(); clearLogo(); $('viewTabs').classList.remove('show');$('qrPanel').classList.remove('show');$('cardPanel').classList.remove('show');};
+  $('contactForm').addEventListener('reset',()=>setTimeout(()=>{$('viewTabs').classList.remove('show');$('qrPanel').classList.remove('show');$('cardPanel').classList.remove('show'); clearLogo();},0));
 </script>
 </body>
 </html>
